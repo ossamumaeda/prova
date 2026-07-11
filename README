@@ -1,1 +1,6 @@
 A validação de um unico endereço por pessoa será feita em nivel de service e API, não em nivel de modelagem do banco.
+
+Detalhes sobre a exclusão de registros. O campo de "ativo" em ambas a tabelas de pessoa e endereco serve para evitar excluir fisicamente registros das tabelas. 
+
+Detalhes sobre a escolha de idioma nos nomes de variaveis e arquivos. Por padrão os nomes são definidos em ingles como linguagem universal, mas como foi deixado explicito nos Detalhes
+de implementação do desafio, os campos do banco de dados e nome da tabela estão em portugues.

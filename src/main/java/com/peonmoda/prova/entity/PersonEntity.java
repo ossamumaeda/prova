@@ -17,13 +17,10 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(
-        name = "pessoa",
-        uniqueConstraints = {
-                @UniqueConstraint(name = "uk_pessoa_cpf", columnNames = "cpf"),
-                @UniqueConstraint(name = "uk_pessoa_email", columnNames = "email")
-        }
-)
+@Table(name = "pessoa", uniqueConstraints = {
+        @UniqueConstraint(name = "uk_pessoa_cpf", columnNames = "cpf"),
+        @UniqueConstraint(name = "uk_pessoa_email", columnNames = "email")
+})
 @EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
@@ -58,12 +55,12 @@ public class PersonEntity {
     private String telefone;
 
     @Builder.Default
-    @OneToMany(
-            mappedBy = "pessoa",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
+    @OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<AddressEntity> enderecos = new ArrayList<>();
+
+    @Builder.Default
+    @Column(nullable = false)
+    private Boolean ativo = true;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)

@@ -55,12 +55,12 @@ public class AddressEntity {
     private String estado;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(
-            name = "pessoa_id",
-            nullable = false,
-            foreignKey = @ForeignKey(name = "fk_endereco_pessoa")
-    )
+    @JoinColumn(name = "pessoa_id", nullable = false, foreignKey = @ForeignKey(name = "fk_endereco_pessoa"))
     private PersonEntity pessoa;
+
+    @Builder.Default
+    @Column(nullable = false)
+    private Boolean ativo = true;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)

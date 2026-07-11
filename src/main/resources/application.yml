@@ -1,4 +1,7 @@
 spring:
+  flyway:
+    locations: classpath:db/migration
+    enabled: true
   datasource:
     url: jdbc:postgresql://localhost:5437/persondb
     username: person
@@ -12,5 +15,4 @@ spring:
       hibernate:
         format_sql: true
 
-  flyway:
-    enabled: true
+  
