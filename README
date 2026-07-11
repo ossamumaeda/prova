@@ -1,0 +1,1 @@
+A validação de um unico endereço por pessoa será feita em nivel de service e API, não em nivel de modelagem do banco.
