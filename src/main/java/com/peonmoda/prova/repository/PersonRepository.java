@@ -21,4 +21,7 @@ public interface PersonRepository extends JpaRepository<PersonEntity, UUID> {
 
     boolean existsByEmail(String email);
 
+    boolean existsByCpfAndAtivoTrue(String cpf);
+
+    boolean existsByEmailAndAtivoTrue(String email);
 }

@@ -4,3 +4,12 @@ Detalhes sobre a exclusão de registros. O campo de "ativo" em ambas a tabelas d
 
 Detalhes sobre a escolha de idioma nos nomes de variaveis e arquivos. Por padrão os nomes são definidos em ingles como linguagem universal, mas como foi deixado explicito nos Detalhes
 de implementação do desafio, os campos do banco de dados e nome da tabela estão em portugues.
+
+Decisão de projeto: Usar ou não interfaces na camada de service. Como é uma aplicação relativamente simples, sem a necessidade de uma possível troca de banco de dados,
+tomei a decisão de não abstrair a camada de service, como é comumente vista em projetos java, visando evitar "overengineering". Ou seja, ao invés de:
+public interface PessoaService{} -> Onde as inscrições das funções definidas
+e depois 
+public class PessoaServiceImplementation implements PessoaService{} -> Onde ocorre as implementações das funções
+
+Implementei apenas public class PessoaService{}
+
