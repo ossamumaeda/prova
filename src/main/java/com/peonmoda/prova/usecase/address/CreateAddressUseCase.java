@@ -10,7 +10,7 @@ import com.peonmoda.prova.dto.request.CreateAddressRequest;
 import com.peonmoda.prova.dto.response.AddressResponse;
 import com.peonmoda.prova.entity.AddressEntity;
 import com.peonmoda.prova.entity.PersonEntity;
-import com.peonmoda.prova.mapper.PersonMapper;
+import com.peonmoda.prova.mapper.AddressMapper;
 import com.peonmoda.prova.service.AddressService;
 import com.peonmoda.prova.service.PersonService;
 
@@ -23,20 +23,20 @@ public class CreateAddressUseCase {
 
     private final PersonService personService;
     private final AddressService addressService;
-    private final PersonMapper mapper;
+    private final AddressMapper addressMapper;
 
     public AddressResponse execute(UUID personId,
                                    CreateAddressRequest dto) throws NotFoundException {
 
         PersonEntity person = personService.searchById(personId);
 
-        AddressEntity address = mapper.converterAddressParaEntity(dto);
+        AddressEntity address = addressMapper.converterAddressParaEntity(dto);
 
         address.setPessoa(person);
 
         AddressEntity saved = addressService.save(address);
 
-        return mapper.converterAddresParaResponse(saved);
+        return addressMapper.converterAddresParaResponse(saved);
     }
 
 }

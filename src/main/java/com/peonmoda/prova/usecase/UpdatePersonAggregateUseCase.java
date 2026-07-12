@@ -13,6 +13,7 @@ import com.peonmoda.prova.dto.response.PersonResponse;
 import com.peonmoda.prova.entity.AddressEntity;
 import com.peonmoda.prova.entity.PersonEntity;
 import com.peonmoda.prova.exception.DuplicateEmailException;
+import com.peonmoda.prova.mapper.AddressMapper;
 import com.peonmoda.prova.mapper.PersonMapper;
 import com.peonmoda.prova.service.AddressService;
 import com.peonmoda.prova.service.PersonService;
@@ -27,25 +28,26 @@ public class UpdatePersonAggregateUseCase {
         private final PersonService personService;
         private final AddressService addressService;
 
-        private final PersonMapper mapper;
+        private final AddressMapper addressMapper;
+        private final PersonMapper personMapper;
 
         public PersonResponse execute(UUID id,
                         UpdatePersonAggregateRequest dto) throws NotFoundException {
                 PersonEntity person = personService.searchById(id);
                 validarEmail(dto.pessoa().email(), person);
 
-                mapper.updatePerson(dto.pessoa(), person);
+                personMapper.updatePerson(dto.pessoa(), person);
 
                 personService.save(person);     
 
                 if (dto.enderecos().size() > 0) {
                         for (UpdateAddressRequest address : dto.enderecos()) {
                                 AddressEntity adressEntity = addressService.searchById(address.id());
-                                mapper.updateAddress(address, adressEntity);
+                                addressMapper.updateAddress(address, adressEntity);
                         }
                 }
 
-                return mapper.converterParaResponse(person);
+                return personMapper.converterParaResponse(person);
 
         }
 

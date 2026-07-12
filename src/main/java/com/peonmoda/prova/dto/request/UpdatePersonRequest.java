@@ -1,15 +1,11 @@
 package com.peonmoda.prova.dto.request;
 
 import java.time.LocalDate;
-import java.util.List;
-
 import com.peonmoda.prova.validation.annotation.CPF;
 import com.peonmoda.prova.validation.annotation.Phone;
 
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Past;
 
 public record UpdatePersonRequest(

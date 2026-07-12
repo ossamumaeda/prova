@@ -10,9 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.peonmoda.prova.dto.response.AddressResponse;
 import com.peonmoda.prova.entity.AddressEntity;
 import com.peonmoda.prova.entity.PersonEntity;
-import com.peonmoda.prova.exception.AddressNotRelatedToPersonException;
-import com.peonmoda.prova.mapper.PersonMapper;
-import com.peonmoda.prova.service.AddressService;
+import com.peonmoda.prova.mapper.AddressMapper;
 import com.peonmoda.prova.service.PersonService;
 
 import lombok.RequiredArgsConstructor;
@@ -23,7 +21,7 @@ import lombok.RequiredArgsConstructor;
 public class ListAddressesUseCase {
 
     private final PersonService personService;
-    private final PersonMapper mapper;
+    private final AddressMapper mapper;
 
     public List<AddressResponse> execute(UUID personId) throws NotFoundException {
 

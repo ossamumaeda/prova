@@ -9,8 +9,7 @@ import com.peonmoda.prova.dto.request.UpdateAddressRequest;
 import com.peonmoda.prova.dto.response.AddressResponse;
 import com.peonmoda.prova.entity.AddressEntity;
 import com.peonmoda.prova.exception.AddressNotRelatedToPersonException;
-import com.peonmoda.prova.exception.BusinessException;
-import com.peonmoda.prova.mapper.PersonMapper;
+import com.peonmoda.prova.mapper.AddressMapper;
 import com.peonmoda.prova.service.AddressService;
 import lombok.RequiredArgsConstructor;
 
@@ -19,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 @Transactional
 public class UpdateAddressUseCase {
     private final AddressService service;
-    private final PersonMapper mapper;
+    private final AddressMapper mapper;
 
     public AddressResponse execute(UUID personId, UUID addressId, UpdateAddressRequest address) {
 
