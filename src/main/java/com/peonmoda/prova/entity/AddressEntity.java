@@ -4,11 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.time.Instant;
 import java.util.UUID;
 
 @Entity
@@ -19,7 +16,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AddressEntity {
+public class AddressEntity extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -61,13 +58,4 @@ public class AddressEntity {
     @Builder.Default
     @Column(nullable = false)
     private Boolean ativo = true;
-
-    @CreatedDate
-    @Column(nullable = false, updatable = false)
-    private Instant createdAt;
-
-    @LastModifiedDate
-    @Column(nullable = false)
-    private Instant updatedAt;
-
 }

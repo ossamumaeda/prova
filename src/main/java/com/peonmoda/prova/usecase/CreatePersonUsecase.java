@@ -43,7 +43,7 @@ public class CreatePersonUsecase {
 
     private void validarCpf(String cpf) {
 
-        if (personService.searchByCpf(cpf) != null) {
+        if (personService.searchByCpf(cpf).isPresent()) {
             throw new DuplicateCpfException(cpf);
         }
 
@@ -51,7 +51,7 @@ public class CreatePersonUsecase {
 
     private void validarEmail(String email) {
 
-        if (personService.searchByEmail(email) != null) {
+        if (personService.searchByEmail(email).isPresent()) {
             throw new DuplicateEmailException(email);
         }
 

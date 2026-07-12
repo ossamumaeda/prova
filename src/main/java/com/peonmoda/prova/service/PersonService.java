@@ -1,8 +1,10 @@
 package com.peonmoda.prova.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,23 +29,17 @@ public class PersonService {
         return repository.save(pessoa);
     }
 
-    @Transactional(readOnly = true)
-    public PersonEntity searchById(UUID id) {
-
+    public PersonEntity searchById(UUID id) throws NotFoundException {
         return repository.findByIdAndAtivoTrue(id)
-                .orElseThrow(() -> new EntityNotFoundException("Pessoa não encontrada."));
+                .orElseThrow(() -> new NotFoundException());
     }
 
-    @Transactional(readOnly = true)
-    public PersonEntity searchByCpf(String cpf) {
-        return repository.findByCpf(cpf)
-                .orElseThrow(() -> new EntityNotFoundException("Pessoa não encontrada."));
+    public Optional<PersonEntity> searchByCpf(String cpf) {
+        return repository.findByCpf(cpf);
     }
 
-    @Transactional(readOnly = true)
-    public PersonEntity searchByEmail(String email) {
-        return repository.findByEmail(email)
-                .orElseThrow(() -> new EntityNotFoundException("Pessoa não encontrada."));
+    public Optional<PersonEntity> searchByEmail(String email) {
+        return repository.findByEmail(email);
     }
 
     @Transactional(readOnly = true)
@@ -55,10 +51,10 @@ public class PersonService {
                 .toList();
     }
 
-    public void remove(UUID id) {
+    public void remove(UUID id) throws NotFoundException {
 
         PersonEntity pessoa = searchById(id);
-
+        
         pessoa.setAtivo(false);
 
         repository.save(pessoa);
