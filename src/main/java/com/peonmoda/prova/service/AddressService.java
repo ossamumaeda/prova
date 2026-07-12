@@ -19,16 +19,16 @@ public class AddressService {
 
     private final AddressRepository repository;
 
-    public AddressEntity salvar(AddressEntity endereco) {
+    public AddressEntity save(AddressEntity endereco) {
         return repository.save(endereco);
     }
 
-    public AddressEntity atualizar(AddressEntity endereco) {
+    public AddressEntity update(AddressEntity endereco) {
         return repository.save(endereco);
     }
 
     @Transactional(readOnly = true)
-    public AddressEntity buscarPorId(UUID id) {
+    public AddressEntity searchById(UUID id) {
 
         return repository.findById(id)
                 .filter(AddressEntity::getAtivo)
@@ -37,7 +37,7 @@ public class AddressService {
     }
 
     @Transactional(readOnly = true)
-    public List<AddressEntity> listar() {
+    public List<AddressEntity> listAdresses() {
 
         return repository.findAll()
                 .stream()
@@ -45,9 +45,9 @@ public class AddressService {
                 .toList();
     }
 
-    public void remover(UUID id) {
+    public void remove(UUID id) {
 
-        AddressEntity endereco = buscarPorId(id);
+        AddressEntity endereco = searchById(id);
 
         endereco.setAtivo(false);
 

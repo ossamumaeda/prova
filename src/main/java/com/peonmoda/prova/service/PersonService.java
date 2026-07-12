@@ -19,24 +19,35 @@ public class PersonService {
 
     private final PersonRepository repository;
 
-    public PersonEntity salvar(PersonEntity pessoa) {
+    public PersonEntity save(PersonEntity pessoa) {
         return repository.save(pessoa);
     }
 
-    public PersonEntity atualizar(PersonEntity pessoa) {
+    public PersonEntity update(PersonEntity pessoa) {
         return repository.save(pessoa);
     }
 
     @Transactional(readOnly = true)
-    public PersonEntity buscarPorId(UUID id) {
+    public PersonEntity searchById(UUID id) {
 
         return repository.findByIdAndAtivoTrue(id)
-                .orElseThrow(() ->
-                        new EntityNotFoundException("Pessoa não encontrada."));
+                .orElseThrow(() -> new EntityNotFoundException("Pessoa não encontrada."));
     }
 
     @Transactional(readOnly = true)
-    public List<PersonEntity> listar() {
+    public PersonEntity searchByCpf(String cpf) {
+        return repository.findByCpf(cpf)
+                .orElseThrow(() -> new EntityNotFoundException("Pessoa não encontrada."));
+    }
+
+    @Transactional(readOnly = true)
+    public PersonEntity searchByEmail(String email) {
+        return repository.findByEmail(email)
+                .orElseThrow(() -> new EntityNotFoundException("Pessoa não encontrada."));
+    }
+
+    @Transactional(readOnly = true)
+    public List<PersonEntity> listPeople() {
 
         return repository.findAll()
                 .stream()
@@ -44,20 +55,20 @@ public class PersonService {
                 .toList();
     }
 
-    public void remover(UUID id) {
+    public void remove(UUID id) {
 
-        PersonEntity pessoa = buscarPorId(id);
+        PersonEntity pessoa = searchById(id);
 
         pessoa.setAtivo(false);
 
         repository.save(pessoa);
     }
 
-    public boolean existeCpf(String cpf) {
+    public boolean existCpf(String cpf) {
         return repository.existsByCpfAndAtivoTrue(cpf);
     }
 
-    public boolean existeEmail(String email) {
+    public boolean existEmail(String email) {
         return repository.existsByEmailAndAtivoTrue(email);
     }
 
