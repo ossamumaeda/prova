@@ -1,11 +1,15 @@
 package com.peonmoda.prova.usecase;
+
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.peonmoda.prova.dto.request.UpdateAddressRequest;
+import com.peonmoda.prova.dto.response.AddressResponse;
 import com.peonmoda.prova.entity.AddressEntity;
+import com.peonmoda.prova.exception.AddressNotRelatedToPersonException;
+import com.peonmoda.prova.exception.BusinessException;
 import com.peonmoda.prova.mapper.PersonMapper;
 import com.peonmoda.prova.service.AddressService;
 import lombok.RequiredArgsConstructor;
@@ -17,13 +21,16 @@ public class UpdateAddressUseCase {
     private final AddressService service;
     private final PersonMapper mapper;
 
-    public AddressEntity execute(UUID id,UpdateAddressRequest address) {
+    public AddressResponse execute(UUID personId, UUID addressId, UpdateAddressRequest address) {
 
-        AddressEntity adressEntity = service.searchById(id);
-        mapper.updateAddress(address, adressEntity);
+        AddressEntity addressEntity = service.searchById(addressId);
+        if (!addressEntity.getPessoa().getId().equals(personId)) {
+            throw new AddressNotRelatedToPersonException();
+        }
+        mapper.updateAddress(address, addressEntity);
 
-        return service.save(adressEntity);
-
+        service.save(addressEntity);
+        return mapper.converterAddresParaResponse(addressEntity);
     }
 
 }
