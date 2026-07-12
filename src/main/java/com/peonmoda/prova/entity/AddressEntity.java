@@ -6,7 +6,6 @@ import lombok.*;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.util.UUID;
 
 @Entity
 @Table(name = "endereco")
@@ -17,10 +16,6 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 public class AddressEntity extends BaseEntity{
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -54,8 +49,4 @@ public class AddressEntity extends BaseEntity{
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "pessoa_id", nullable = false, foreignKey = @ForeignKey(name = "fk_endereco_pessoa"))
     private PersonEntity pessoa;
-
-    @Builder.Default
-    @Column(nullable = false)
-    private Boolean ativo = true;
 }

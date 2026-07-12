@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.peonmoda.prova.entity.PersonEntity;
 import com.peonmoda.prova.repository.PersonRepository;
 
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 
 @Service

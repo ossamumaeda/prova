@@ -11,7 +11,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Table(name = "pessoa", uniqueConstraints = {
@@ -25,10 +24,6 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 public class PersonEntity extends BaseEntity{
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
 
     @NotBlank
     @Column(nullable = false, length = 11)
@@ -54,10 +49,6 @@ public class PersonEntity extends BaseEntity{
     @Builder.Default
     @OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<AddressEntity> enderecos = new ArrayList<>();
-
-    @Builder.Default
-    @Column(nullable = false)
-    private Boolean ativo = true;
 
     /**
      * Mantém o relacionamento bidirecional consistente.
