@@ -2,9 +2,9 @@ package com.peonmoda.prova.exception;
 
 import org.springframework.http.HttpStatus;
 
-public class InvalidPersonException extends BusinessException {
+public class PersonNotFoundException extends BusinessException{
 
-    public InvalidPersonException(String message) {
+    public PersonNotFoundException(String message) {
         super(message,HttpStatus.CONFLICT);
     }
 
