@@ -20,6 +20,10 @@ public class PersonService {
 
     private final PersonRepository repository;
 
+    public List<PersonEntity> getAll(){
+        return repository.findAll();
+    }
+
     public PersonEntity save(PersonEntity pessoa) {
         return repository.save(pessoa);
     }

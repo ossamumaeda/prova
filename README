@@ -12,3 +12,9 @@ e depois
 public class PessoaServiceImplementation implements PessoaService{} -> Onde ocorre as implementações das funções
 
 Implementei apenas public class PessoaService{}
+
+Detalhes sobre o remove de pessoa: Como o sistema está utilizando o remove lógico, caso uma pessoa seja "removida", a flag ativo é settada como false e consequentemente os endereços
+atrelados a pessoa ficam com a flag ativo false tambem.
+
+Detalhes sobre o update de pessoa e endereço: Visando as diferentes funcionalidades do front-end, existem 3 usecases diferentes, um para editar apenas pessoa, editar apenas endereço
+e editar pessoa + endereço.

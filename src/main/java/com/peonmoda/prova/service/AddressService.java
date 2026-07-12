@@ -29,7 +29,6 @@ public class AddressService {
 
     @Transactional(readOnly = true)
     public AddressEntity searchById(UUID id) {
-
         return repository.findById(id)
                 .filter(AddressEntity::getAtivo)
                 .orElseThrow(() ->

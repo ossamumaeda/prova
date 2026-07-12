@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.peonmoda.prova.entity.PersonEntity;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -12,6 +13,7 @@ import java.util.UUID;
 public interface PersonRepository extends JpaRepository<PersonEntity, UUID> {
 
     Optional<PersonEntity> findByCpf(String cpf);
+    List<PersonEntity> findByAtivo(Boolean ativo);
 
     Optional<PersonEntity> findByEmail(String email);
 

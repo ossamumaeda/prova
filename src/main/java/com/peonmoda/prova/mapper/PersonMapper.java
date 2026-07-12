@@ -3,6 +3,8 @@ package com.peonmoda.prova.mapper;
 import org.springframework.stereotype.Component;
 
 import com.peonmoda.prova.dto.request.CreatePersonRequest;
+import com.peonmoda.prova.dto.request.UpdateAddressRequest;
+import com.peonmoda.prova.dto.request.UpdatePersonRequest;
 import com.peonmoda.prova.dto.response.AddressResponse;
 import com.peonmoda.prova.dto.response.PersonResponse;
 import com.peonmoda.prova.entity.AddressEntity;
@@ -33,7 +35,7 @@ public class PersonMapper {
             address.setBairro(addressDto.bairro());
             address.setMunicipio(addressDto.municipio());
             address.setEstado(addressDto.estado());
-            
+
             person.adicionarEndereco(address);
 
         });
@@ -63,5 +65,34 @@ public class PersonMapper {
                                 address.getMunicipio(),
                                 address.getEstado()))
                         .toList());
+    }
+
+    public PersonEntity updatePerson(
+            UpdatePersonRequest dto,
+            PersonEntity person) {
+
+        person.setNome(dto.nome());
+        person.setCpf(dto.cpf());
+        person.setEmail(dto.email());
+        person.setTelefone(dto.telefone());
+        person.setDataNascimento(dto.dataNascimento());
+
+        return person;
+
+    }
+
+    public AddressEntity updateAddress(UpdateAddressRequest dto, AddressEntity address) {
+
+        address.setTipo(dto.tipo());
+        address.setCodigoPostal(dto.codigoPostal());
+        address.setLogradouro(dto.logradouro());
+        address.setNumero(dto.numero());
+        address.setComplemento(dto.complemento());
+        address.setBairro(dto.bairro());
+        address.setMunicipio(dto.municipio());
+        address.setEstado(dto.estado());
+
+        return address;
+
     }
 }
