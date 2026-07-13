@@ -15,19 +15,19 @@ public class PersonFactory {
 
     public static CreatePersonRequest createRequest() {
         return new CreatePersonRequest(
+                "12330487916",
                 "Gabriel Maeda",
-                "12345678909",
                 "gabriel@email.com",
                 LocalDate.of(2000, 1, 1),
-                "44999999999",
+                "43988150821",
                 List.of(AddressFactory.createRequest()));
     }
 
     public static PersonResponse createResponse() {
         return new PersonResponse(
                 UUID.randomUUID(),
-                "Gabriel Maeda",
-                "12345678909",
+                "12330487916",
+                "12330487916",
                 "gabriel@email.com",
                 LocalDate.of(2000, 1, 1),
                 "44999999999",
@@ -40,7 +40,7 @@ public class PersonFactory {
 
         person.setId(UUID.randomUUID());
         person.setNome("Gabriel Maeda");
-        person.setCpf("12345678909");
+        person.setCpf("12330487916");
         person.setEmail("gabriel@email.com");
         person.setTelefone("44999999999");
         person.setDataNascimento(LocalDate.of(2000, 1, 1));
@@ -50,8 +50,8 @@ public class PersonFactory {
 
     public static CreatePersonRequest createRequestWithoutAddresses() {
         return new CreatePersonRequest(
-                "Gabriel Maeda",
-                "12345678909",
+                "12330487916",
+                "12330487916",
                 "gabriel@email.com",
                 LocalDate.of(2000, 1, 1),
                 "44999999999",

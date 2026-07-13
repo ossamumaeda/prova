@@ -18,3 +18,5 @@ atrelados a pessoa ficam com a flag ativo false tambem.
 
 Detalhes sobre o update de pessoa e endereço: Visando as diferentes funcionalidades do front-end, existem 3 usecases diferentes, um para editar apenas pessoa, editar apenas endereço
 e editar pessoa + endereço.
+
+Decisão: Não implementar todos os testes unitarios dos usecases de get,list. Motivo: tempo, foco maior nos testes de integração ou testes de use cases mais "complexos"
