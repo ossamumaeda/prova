@@ -1,26 +1,306 @@
-A validação de um unico endereço por pessoa será feita em nivel de service e API, não em nivel de modelagem do banco.
+# CRUD pessoas + endereços
 
-Detalhes sobre a exclusão de registros. O campo de "ativo" em ambas a tabelas de pessoa e endereco serve para evitar excluir fisicamente registros das tabelas. 
+API REST desenvolvida em **Java 21** e **Spring Boot 4.0.7** para gerenciamento de Pessoas e Endereços.
 
-Detalhes sobre a escolha de idioma nos nomes de variaveis e arquivos. Por padrão os nomes são definidos em ingles como linguagem universal, mas como foi deixado explicito nos Detalhes
-de implementação do desafio, os campos do banco de dados e nome da tabela estão em portugues.
+O projeto foi desenvolvido como solução para um desafio técnico, buscando seguir práticas comuns encontradas em aplicações Java de nível Pleno, incluindo arquitetura em camadas, documentação da API, testes automatizados, versionamento de banco de dados e execução via Docker.
 
-Decisão de projeto: Usar ou não interfaces na camada de service. Como é uma aplicação relativamente simples, sem a necessidade de uma possível troca de banco de dados,
-tomei a decisão de não abstrair a camada de service, como é comumente vista em projetos java, visando evitar "overengineering". Ou seja, ao invés de:
-public interface PessoaService{} -> Onde as inscrições das funções definidas
-e depois 
-public class PessoaServiceImplementation implements PessoaService{} -> Onde ocorre as implementações das funções
+---
 
-Implementei apenas public class PessoaService{}
+# Tecnologias utilizadas
 
-Detalhes sobre o remove de pessoa: Como o sistema está utilizando o remove lógico, caso uma pessoa seja "removida", a flag ativo é settada como false e consequentemente os endereços
-atrelados a pessoa ficam com a flag ativo false tambem.
+- Java 21
+- Spring Boot
+- Spring Web
+- Spring Data JPA
+- Bean Validation
+- PostgreSQL
+- Flyway
+- Lombok
+- Springdoc OpenAPI (Swagger)
+- JUnit 5
+- Mockito
+- MockMvc
+- Testcontainers
+- Docker
+- Docker Compose
 
-Detalhes sobre o update de pessoa e endereço: Visando as diferentes funcionalidades do front-end, existem 3 usecases diferentes, um para editar apenas pessoa, editar apenas endereço
-e editar pessoa + endereço.
+---
 
-Decisão: Não implementar todos os testes unitarios dos usecases de get,list. Motivo: tempo, foco maior nos testes de integração ou testes de use cases mais "complexos"
+# Arquitetura
 
-Docker: Cria uma rede interna privada entre banco e aplicação
+O projeto segue uma arquitetura em camadas:
 
-Como rodar o projeto: docker compose up --build -> docker compose up -d -> mvn test
+```text
+Controller
+    ↓
+UseCases
+    ↓
+Services
+    ↓
+Repositories
+    ↓
+Banco de Dados
+```
+
+A responsabilidade de cada camada foi dividida da seguinte forma:
+
+- **Controllers:** recebem e validam as requisições HTTP.
+- **UseCases:** concentram as regras de negócio.
+- **Services:** abstraem o acesso aos repositórios.
+- **Repositories:** comunicação com o banco de dados através do Spring Data JPA.
+
+---
+
+# Organização dos pacotes
+
+```text
+controller
+config
+dto
+entity
+exception
+factory
+mapper
+repository
+service
+usecase
+validation
+```
+
+---
+
+# Banco de dados
+
+O banco de dados é versionado utilizando **Flyway**.
+
+O relacionamento entre Pessoa e Endereço é:
+
+```text
+Pessoa (1)
+    │
+    └─────── (N) Endereços
+```
+
+Foram criadas restrições de unicidade para:
+
+- CPF
+- E-mail
+
+---
+
+# Decisões de Projeto
+
+## Validação da existência de endereço
+
+Uma pessoa obrigatoriamente deve possuir pelo menos um endereço.
+
+Essa validação foi implementada na camada de **UseCase**, e não através de modelagem do banco de dados.
+
+O objetivo foi manter as regras de negócio concentradas na aplicação, evitando acoplamento desnecessário ao banco.
+
+---
+
+## Exclusão lógica (Soft Delete)
+
+Nenhum registro é removido fisicamente.
+
+As tabelas possuem o campo:
+
+```text
+ativo
+```
+
+Quando uma Pessoa é removida:
+
+- Pessoa recebe `ativo = false`
+- Todos os seus endereços também recebem `ativo = false`
+
+Dessa forma é possível preservar o histórico dos dados.
+
+---
+
+## Idioma utilizado
+
+Como padrão do projeto, classes, interfaces, métodos e variáveis seguem nomenclatura em **inglês**, por ser o padrão adotado pela comunidade Java.
+
+Entretanto, conforme solicitado no desafio, os nomes das tabelas e colunas do banco de dados foram mantidos em português.
+
+---
+
+## Camada de Service sem Interfaces
+
+É comum encontrar projetos Java utilizando a estrutura:
+
+```java
+PessoaService (interface)
+
+↓
+
+PessoaServiceImpl (implementação)
+```
+
+Neste projeto foi utilizada apenas:
+
+```java
+PessoaService
+```
+
+Essa decisão foi tomada por se tratar de uma aplicação relativamente simples, sem múltiplas implementações da camada de serviço ou necessidade de troca de tecnologia de persistência.
+
+O objetivo foi evitar **overengineering**, reduzindo complexidade desnecessária sem perder organização do código.
+
+---
+
+## Atualização de Pessoa e Endereço
+
+O projeto possui três UseCases independentes:
+
+- `UpdatePersonUseCase`
+- `UpdateAddressUseCase`
+- `UpdatePersonAggregateUseCase`
+
+Apesar de existir uma aparente redundância, essa separação foi intencional para permitir que diferentes funcionalidades do Front-end possam editar apenas Pessoa, apenas Endereço ou ambos simultaneamente, sem acoplamento entre os fluxos.
+
+---
+
+## Testes
+
+Foram implementados:
+
+- Testes unitários dos principais UseCases
+- Testes de integração utilizando MockMvc
+- Testes com PostgreSQL real através do Testcontainers
+
+Por questão de tempo, optou-se por não implementar testes unitários para casos simples como os UseCases de consulta (`Get` e `List`), priorizando os fluxos com maior quantidade de regras de negócio e os testes de integração dos endpoints.
+
+---
+
+## Tratamento de erros
+
+A aplicação possui um `GlobalExceptionHandler` responsável por padronizar todas as respostas de erro.
+
+São tratados, entre outros:
+
+- Erros de validação
+- Recursos não encontrados
+- Violações de regras de negócio
+- Erros internos da aplicação
+
+Todas as respostas seguem o mesmo formato:
+
+```json
+{
+  "timestamp": "...",
+  "status": 409,
+  "error": "Conflict",
+  "message": "...",
+  "path": "...",
+  "fields": {}
+}
+```
+
+---
+
+## Docker
+
+A aplicação pode ser executada integralmente utilizando Docker Compose.
+
+Ao iniciar o projeto, o Docker Compose cria automaticamente uma **rede privada** entre a API e o PostgreSQL.
+
+Dessa forma, a aplicação acessa o banco utilizando o hostname do serviço (`postgres`), sem necessidade de utilizar IPs fixos.
+
+O Flyway executa automaticamente todas as migrations durante a inicialização da aplicação.
+
+---
+
+# Como executar o projeto
+
+## Pré-requisitos
+
+- Docker
+- Docker Compose
+- Java 21 (apenas para execução dos testes via Maven)
+
+---
+
+## Clonar o projeto
+
+```bash
+git clone <url-do-repositorio>
+cd person-api
+```
+
+---
+
+## Subir a aplicação
+
+```bash
+docker compose up --build
+```
+
+Ou, caso já tenha realizado o build anteriormente:
+
+```bash
+docker compose up -d
+```
+
+A API estará disponível em:
+
+```
+http://localhost:8080
+```
+
+---
+
+## Executar os testes
+
+```bash
+mvn test
+```
+
+Ou:
+
+```bash
+mvn verify
+```
+
+---
+
+# Documentação da API
+
+Após iniciar a aplicação, a documentação poderá ser acessada em:
+
+```
+http://localhost:8080/swagger-ui.html
+```
+
+---
+
+# Funcionalidades
+
+## Pessoa
+
+- Criar Pessoa
+- Buscar Pessoa por ID
+- Listar Pessoas
+- Atualizar Pessoa
+- Atualizar Pessoa + Endereços
+- Exclusão lógica
+
+## Endereço
+
+- Criar Endereço
+- Buscar Endereço por ID
+- Listar Endereços
+- Atualizar Endereço
+- Exclusão lógica
+
+---
+
+# Melhorias futuras
+
+Algumas melhorias que poderiam ser implementadas em uma evolução do projeto:
+
+- Paginação
+- Cache com Redis
+- Autenticação utilizando Spring Security + JWT
