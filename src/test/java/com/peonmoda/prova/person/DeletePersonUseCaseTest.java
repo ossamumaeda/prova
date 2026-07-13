@@ -1,6 +1,7 @@
 package com.peonmoda.prova.person;
 
 import com.peonmoda.prova.entity.PersonEntity;
+import com.peonmoda.prova.exception.PersonNotFoundException;
 import com.peonmoda.prova.factory.PersonFactory;
 import com.peonmoda.prova.service.PersonService;
 import com.peonmoda.prova.usecase.DeletePersonUseCase;
@@ -15,6 +16,7 @@ import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -48,15 +50,15 @@ class DeletePersonUseCaseTest {
     }
 
     @Test
-    void shouldThrowNotFoundExceptionWhenPersonDoesNotExist() throws NotFoundException {
+    void shouldThrowNotFoundExceptionWhenPersonDoesNotExist() throws PersonNotFoundException, NotFoundException {
 
         UUID id = UUID.randomUUID();
 
         when(personService.searchById(id))
-                .thenThrow(new NotFoundException());
+                .thenThrow(new PersonNotFoundException(""));
 
         assertThrows(
-                NotFoundException.class,
+                PersonNotFoundException.class,
                 () -> useCase.execute(id)
         );
 

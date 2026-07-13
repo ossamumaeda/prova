@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 public class PersonNotFoundException extends BusinessException{
 
     public PersonNotFoundException(String message) {
-        super(message,HttpStatus.CONFLICT);
+        super(message,HttpStatus.NOT_FOUND);
     }
 
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.peonmoda.prova.entity.PersonEntity;
+import com.peonmoda.prova.exception.PersonNotFoundException;
 import com.peonmoda.prova.repository.PersonRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -34,7 +35,7 @@ public class PersonService {
 
     public PersonEntity searchById(UUID id) throws NotFoundException {
         return repository.findByIdAndAtivoTrue(id)
-                .orElseThrow(() -> new NotFoundException());
+                .orElseThrow(() -> new PersonNotFoundException("Pessoa não encontrada"));
     }
 
     public Optional<PersonEntity> searchByCpf(String cpf) {
