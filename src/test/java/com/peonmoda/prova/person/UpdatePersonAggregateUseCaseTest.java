@@ -90,7 +90,7 @@ class UpdatePersonAggregateUseCaseTest {
         person.setId(personId);
 
         AddressEntity address = AddressFactory.createEntity();
-
+        address.setPessoa(person);
         UpdatePersonRequest updatePerson = PersonFactory.updateRequest();
 
         UpdatePersonAggregateRequest request =
@@ -104,7 +104,7 @@ class UpdatePersonAggregateUseCaseTest {
         PersonResponse response = PersonFactory.createResponse();
 
         when(personService.searchById(personId)).thenReturn(person);
-        // when(personService.searchByEmail(updatePerson.email())).thenReturn(Optional.empty());
+
         when(personService.save(person)).thenReturn(person);
 
         when(addressService.searchById(address.getId()))
