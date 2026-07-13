@@ -5,12 +5,12 @@ import com.peonmoda.prova.dto.request.CreatePersonRequest;
 import com.peonmoda.prova.dto.request.UpdatePersonAggregateRequest;
 import com.peonmoda.prova.dto.request.UpdatePersonRequest;
 import com.peonmoda.prova.dto.response.PersonResponse;
-import com.peonmoda.prova.usecase.CreatePersonUsecase;
-import com.peonmoda.prova.usecase.DeletePersonUseCase;
-import com.peonmoda.prova.usecase.GetPersonByIdUseCase;
-import com.peonmoda.prova.usecase.ListPeopleUsecase;
-import com.peonmoda.prova.usecase.UpdatePersonAggregateUseCase;
-import com.peonmoda.prova.usecase.UpdatePersonUseCase;
+import com.peonmoda.prova.usecase.person.CreatePersonUsecase;
+import com.peonmoda.prova.usecase.person.DeletePersonUseCase;
+import com.peonmoda.prova.usecase.person.GetPersonByIdUseCase;
+import com.peonmoda.prova.usecase.person.ListPeopleUsecase;
+import com.peonmoda.prova.usecase.person.UpdatePersonAggregateUseCase;
+import com.peonmoda.prova.usecase.person.UpdatePersonUseCase;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;

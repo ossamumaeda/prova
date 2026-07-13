@@ -57,11 +57,11 @@ public class PersonService {
 
     public void remove(UUID id) throws NotFoundException {
 
-        PersonEntity pessoa = searchById(id);
+        PersonEntity person = searchById(id);
         
-        pessoa.setAtivo(false);
+        person.setAtivo(false);
 
-        repository.save(pessoa);
+        repository.save(person);
     }
 
     public boolean existCpf(String cpf) {

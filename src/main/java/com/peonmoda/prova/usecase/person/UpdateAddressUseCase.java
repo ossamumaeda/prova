@@ -1,4 +1,4 @@
-package com.peonmoda.prova.usecase;
+package com.peonmoda.prova.usecase.person;
 
 import java.util.UUID;
 
@@ -27,10 +27,10 @@ public class UpdateAddressUseCase {
         if (!addressEntity.getPessoa().getId().equals(personId)) {
             throw new AddressNotRelatedToPersonException();
         }
-        mapper.updateAddress(address, addressEntity);
+        mapper.toUpdate(address, addressEntity);
 
         service.save(addressEntity);
-        return mapper.converterAddresParaResponse(addressEntity);
+        return mapper.toResponse(addressEntity);
     }
 
 }

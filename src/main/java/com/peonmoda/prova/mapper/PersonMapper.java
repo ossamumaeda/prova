@@ -12,7 +12,7 @@ import com.peonmoda.prova.entity.PersonEntity;
 @Component
 public class PersonMapper {
 
-    public PersonEntity converterParaEntidade(CreatePersonRequest dto) {
+    public PersonEntity toEntity(CreatePersonRequest dto) {
 
         PersonEntity person = new PersonEntity();
 
@@ -42,7 +42,7 @@ public class PersonMapper {
         return person;
     }
 
-    public PersonResponse converterParaResponse(PersonEntity entity) {
+    public PersonResponse toResponse(PersonEntity entity) {
 
         return new PersonResponse(
                 entity.getId(),
@@ -66,7 +66,7 @@ public class PersonMapper {
                         .toList());
     }
 
-    public PersonEntity updatePerson(
+    public PersonEntity toUpdate(
             UpdatePersonRequest dto,
             PersonEntity person) {
 

@@ -31,7 +31,7 @@ public class ListAddressesUseCase {
         return person.getEnderecos()
                 .stream()
                 .filter(AddressEntity::getAtivo)
-                .map(mapper::converterAddresParaResponse)
+                .map(mapper::toResponse)
                 .toList();
     }
 

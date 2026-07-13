@@ -12,7 +12,7 @@ import com.peonmoda.prova.mapper.AddressMapper;
 import com.peonmoda.prova.mapper.PersonMapper;
 import com.peonmoda.prova.service.AddressService;
 import com.peonmoda.prova.service.PersonService;
-import com.peonmoda.prova.usecase.UpdatePersonAggregateUseCase;
+import com.peonmoda.prova.usecase.person.UpdatePersonAggregateUseCase;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -68,13 +68,13 @@ class UpdatePersonAggregateUseCaseTest {
         when(personService.searchById(personId)).thenReturn(person);
         // when(personService.searchByEmail(updatePerson.email())).thenReturn(Optional.empty());
         when(personService.save(person)).thenReturn(person);
-        when(personMapper.converterParaResponse(person)).thenReturn(response);
+        when(personMapper.toResponse(person)).thenReturn(response);
 
         PersonResponse result = useCase.execute(personId, request);
 
         assertNotNull(result);
 
-        verify(personMapper).updatePerson(updatePerson, person);
+        verify(personMapper).toUpdate(updatePerson, person);
         verify(personService).save(person);
 
         verifyNoInteractions(addressService);
@@ -110,15 +110,15 @@ class UpdatePersonAggregateUseCaseTest {
         when(addressService.searchById(address.getId()))
                 .thenReturn(address);
 
-        when(personMapper.converterParaResponse(person))
+        when(personMapper.toResponse(person))
                 .thenReturn(response);
 
         PersonResponse result = useCase.execute(personId, request);
 
         assertNotNull(result);
 
-        verify(personMapper).updatePerson(updatePerson, person);
-        verify(addressMapper).updateAddress(request.enderecos().get(0), address);
+        verify(personMapper).toUpdate(updatePerson, person);
+        verify(addressMapper).toUpdate(request.enderecos().get(0), address);
         verify(addressService).searchById(address.getId());
     }
 

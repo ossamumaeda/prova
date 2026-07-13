@@ -1,4 +1,4 @@
-package com.peonmoda.prova.usecase;
+package com.peonmoda.prova.usecase.person;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +27,7 @@ public class ListPeopleUsecase {
         List<PersonResponse> peopleResponse = new ArrayList<PersonResponse>();
 
         for(PersonEntity person: people){
-            peopleResponse.add(mapper.converterParaResponse(person));
+            peopleResponse.add(mapper.toResponse(person));
         }
 
         return peopleResponse;

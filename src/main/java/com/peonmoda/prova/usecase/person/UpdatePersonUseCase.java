@@ -1,4 +1,4 @@
-package com.peonmoda.prova.usecase;
+package com.peonmoda.prova.usecase.person;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -27,15 +27,15 @@ public class UpdatePersonUseCase {
     public PersonResponse execute(UUID id, UpdatePersonRequest dto) throws NotFoundException {
         PersonEntity person = personService.searchById(id);
 
-        validarEmail(dto.email(), person);
+        validateEmail(dto.email(), person);
 
-        mapper.updatePerson(dto, person);
+        mapper.toUpdate(dto, person);
 
         personService.save(person);
-        return mapper.converterParaResponse(person);
+        return mapper.toResponse(person);
     }
 
-    private void validarEmail(String email, PersonEntity person) {
+    private void validateEmail(String email, PersonEntity person) {
 
         if (email.equals(person.getEmail())) {
             return;

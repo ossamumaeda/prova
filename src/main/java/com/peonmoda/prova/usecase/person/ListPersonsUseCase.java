@@ -1,4 +1,4 @@
-package com.peonmoda.prova.usecase;
+package com.peonmoda.prova.usecase.person;
 import java.util.List;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +18,7 @@ public class ListPersonsUseCase {
 
         return personService.getAll()
                 .stream()
-                .map(mapper::converterParaResponse)
+                .map(mapper::toResponse)
                 .toList();
 
     }

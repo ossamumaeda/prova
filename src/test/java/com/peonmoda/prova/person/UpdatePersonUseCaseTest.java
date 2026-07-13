@@ -7,7 +7,7 @@ import com.peonmoda.prova.exception.PersonNotFoundException;
 import com.peonmoda.prova.factory.PersonFactory;
 import com.peonmoda.prova.mapper.PersonMapper;
 import com.peonmoda.prova.service.PersonService;
-import com.peonmoda.prova.usecase.UpdatePersonUseCase;
+import com.peonmoda.prova.usecase.person.UpdatePersonUseCase;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -49,7 +49,7 @@ class UpdatePersonUseCaseTest {
         when(personService.save(entity))
                 .thenReturn(entity);
 
-        when(mapper.converterParaResponse(entity))
+        when(mapper.toResponse(entity))
                 .thenReturn(response);
 
         PersonResponse result = useCase.execute(id, request);
@@ -58,9 +58,9 @@ class UpdatePersonUseCaseTest {
         assertEquals(response.nome(), result.nome());
 
         verify(personService).searchById(id);
-        verify(mapper).updatePerson(request, entity);
+        verify(mapper).toUpdate(request, entity);
         verify(personService).save(entity);
-        verify(mapper).converterParaResponse(entity);
+        verify(mapper).toResponse(entity);
     }
 
     @Test
@@ -79,7 +79,7 @@ class UpdatePersonUseCaseTest {
         );
 
         verify(personService, never()).save(any());
-        verify(mapper, never()).updatePerson(any(), any());
+        verify(mapper, never()).toUpdate(any(), any());
     }
 
 }

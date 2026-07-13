@@ -10,7 +10,7 @@ import com.peonmoda.prova.exception.EmptyAddresses;
 import com.peonmoda.prova.factory.PersonFactory;
 import com.peonmoda.prova.mapper.PersonMapper;
 import com.peonmoda.prova.service.PersonService;
-import com.peonmoda.prova.usecase.CreatePersonUsecase;
+import com.peonmoda.prova.usecase.person.CreatePersonUsecase;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -45,9 +45,9 @@ class CreatePersonUseCaseTest {
 
         when(personService.searchByCpf(request.cpf())).thenReturn(Optional.empty());
         when(personService.searchByEmail(request.email())).thenReturn(Optional.empty());
-        when(mapper.converterParaEntidade(request)).thenReturn(entity);
+        when(mapper.toEntity(request)).thenReturn(entity);
         when(personService.save(any(PersonEntity.class))).thenReturn(entity);
-        when(mapper.converterParaResponse(entity)).thenReturn(response);
+        when(mapper.toResponse(entity)).thenReturn(response);
 
         PersonResponse result = useCase.execute(request);
 
@@ -79,7 +79,7 @@ class CreatePersonUseCaseTest {
                 () -> useCase.execute(request));
 
         verify(personService, never()).save(any());
-        verify(mapper, never()).converterParaEntidade(any());
+        verify(mapper, never()).toEntity(any());
     }
 
     @Test
@@ -98,7 +98,7 @@ class CreatePersonUseCaseTest {
                 () -> useCase.execute(request));
 
         verify(personService, never()).save(any());
-        verify(mapper, never()).converterParaEntidade(any());
+        verify(mapper, never()).toEntity(any());
     }
 
     @Test

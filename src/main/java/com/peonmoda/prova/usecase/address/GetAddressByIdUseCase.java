@@ -30,7 +30,7 @@ public class GetAddressByIdUseCase {
             throw new AddressNotRelatedToPersonException();
         }
 
-        return mapper.converterAddresParaResponse(address);
+        return mapper.toResponse(address);
     }
 
 }

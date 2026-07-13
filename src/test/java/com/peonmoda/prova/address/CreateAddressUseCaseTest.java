@@ -50,9 +50,9 @@ class CreateAddressUseCaseTest {
         AddressResponse response = AddressFactory.createResponse();
 
         when(personService.searchById(personId)).thenReturn(person);
-        when(addressMapper.converterAddressParaEntity(request)).thenReturn(address);
+        when(addressMapper.toEntity(request)).thenReturn(address);
         when(addressService.save(address)).thenReturn(address);
-        when(addressMapper.converterAddresParaResponse(address)).thenReturn(response);
+        when(addressMapper.toResponse(address)).thenReturn(response);
 
         AddressResponse result = useCase.execute(personId, request);
 
@@ -67,8 +67,8 @@ class CreateAddressUseCaseTest {
         assertEquals(person, saved.getPessoa());
 
         verify(personService).searchById(personId);
-        verify(addressMapper).converterAddressParaEntity(request);
-        verify(addressMapper).converterAddresParaResponse(address);
+        verify(addressMapper).toEntity(request);
+        verify(addressMapper).toResponse(address);
     }
 
     @Test

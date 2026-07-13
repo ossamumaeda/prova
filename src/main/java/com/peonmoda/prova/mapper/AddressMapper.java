@@ -10,7 +10,7 @@ import com.peonmoda.prova.entity.AddressEntity;
 @Component
 public class AddressMapper {
 
-    public AddressEntity updateAddress(UpdateAddressRequest dto, AddressEntity address) {
+    public AddressEntity toUpdate(UpdateAddressRequest dto, AddressEntity address) {
 
         address.setTipo(dto.tipo());
         address.setCodigoPostal(dto.codigoPostal());
@@ -25,7 +25,7 @@ public class AddressMapper {
 
     }
 
-    public AddressEntity converterAddressParaEntity(CreateAddressRequest dto) {
+    public AddressEntity toEntity(CreateAddressRequest dto) {
         AddressEntity address = new AddressEntity();
 
         address.setTipo(dto.tipo());
@@ -39,7 +39,7 @@ public class AddressMapper {
         return address;
     }
 
-    public AddressResponse converterAddresParaResponse(AddressEntity entity) {
+    public AddressResponse toResponse(AddressEntity entity) {
         AddressResponse response = new AddressResponse(
                 entity.getId(),
                 entity.getTipo(),

@@ -1,4 +1,4 @@
-package com.peonmoda.prova.usecase;
+package com.peonmoda.prova.usecase.person;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -39,7 +39,7 @@ public class UpdatePersonAggregateUseCase {
                 
                 validarEmail(dto.pessoa().email(), person);
 
-                personMapper.updatePerson(dto.pessoa(), person);
+                personMapper.toUpdate(dto.pessoa(), person);
 
                 personService.save(person);     
 
@@ -51,11 +51,11 @@ public class UpdatePersonAggregateUseCase {
                                         throw new AddressNotRelatedToPersonException();
                                 }
 
-                                addressMapper.updateAddress(address, adressEntity);
+                                addressMapper.toUpdate(address, adressEntity);
                         }
                 }
 
-                return personMapper.converterParaResponse(person);
+                return personMapper.toResponse(person);
 
         }
 

@@ -30,13 +30,13 @@ public class CreateAddressUseCase {
 
         PersonEntity person = personService.searchById(personId);
 
-        AddressEntity address = addressMapper.converterAddressParaEntity(dto);
+        AddressEntity address = addressMapper.toEntity(dto);
 
         address.setPessoa(person);
 
         AddressEntity saved = addressService.save(address);
 
-        return addressMapper.converterAddresParaResponse(saved);
+        return addressMapper.toResponse(saved);
     }
 
 }

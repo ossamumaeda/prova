@@ -4,7 +4,7 @@ import com.peonmoda.prova.entity.PersonEntity;
 import com.peonmoda.prova.exception.PersonNotFoundException;
 import com.peonmoda.prova.factory.PersonFactory;
 import com.peonmoda.prova.service.PersonService;
-import com.peonmoda.prova.usecase.DeletePersonUseCase;
+import com.peonmoda.prova.usecase.person.DeletePersonUseCase;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

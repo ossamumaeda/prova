@@ -4,11 +4,11 @@ import com.peonmoda.prova.dto.ErrorResponse;
 import com.peonmoda.prova.dto.request.CreateAddressRequest;
 import com.peonmoda.prova.dto.request.UpdateAddressRequest;
 import com.peonmoda.prova.dto.response.AddressResponse;
-import com.peonmoda.prova.usecase.UpdateAddressUseCase;
 import com.peonmoda.prova.usecase.address.CreateAddressUseCase;
 import com.peonmoda.prova.usecase.address.DeleteAddressUseCase;
 import com.peonmoda.prova.usecase.address.GetAddressByIdUseCase;
 import com.peonmoda.prova.usecase.address.ListAddressesUseCase;
+import com.peonmoda.prova.usecase.person.UpdateAddressUseCase;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;

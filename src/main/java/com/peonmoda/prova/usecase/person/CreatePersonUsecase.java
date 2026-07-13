@@ -1,4 +1,4 @@
-package com.peonmoda.prova.usecase;
+package com.peonmoda.prova.usecase.person;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,24 +24,24 @@ public class CreatePersonUsecase {
 
     public PersonResponse execute(CreatePersonRequest dto) {
 
-        validarCpf(dto.cpf());
+        validateCpf(dto.cpf());
 
-        validarEmail(dto.email());
+        validateEmail(dto.email());
 
-        validarEnderecos(dto.enderecos());
+        validateAddress(dto.enderecos());
 
         // PersonEntity person = converterParaEntidade(dto);
-        PersonEntity person = mapper.converterParaEntidade(dto);
+        PersonEntity person = mapper.toEntity(dto);
 
         person.getEnderecos()
                 .forEach(endereco -> endereco.setPessoa(person));
 
         PersonEntity saved = personService.save(person);
 
-        return mapper.converterParaResponse(saved);
+        return mapper.toResponse(saved);
     }
 
-    private void validarCpf(String cpf) {
+    private void validateCpf(String cpf) {
 
         if (personService.searchByCpf(cpf).isPresent()) {
             throw new DuplicateCpfException(cpf);
@@ -49,7 +49,7 @@ public class CreatePersonUsecase {
 
     }
 
-    private void validarEmail(String email) {
+    private void validateEmail(String email) {
 
         if (personService.searchByEmail(email).isPresent()) {
             throw new DuplicateEmailException(email);
@@ -57,7 +57,7 @@ public class CreatePersonUsecase {
 
     }
 
-    private void validarEnderecos(List<CreateAddressRequest> enderecos) {
+    private void validateAddress(List<CreateAddressRequest> enderecos) {
 
         if (enderecos == null || enderecos.isEmpty()) {
             throw new EmptyAddresses("Lista de endereços vazia");

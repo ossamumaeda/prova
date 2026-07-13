@@ -36,7 +36,7 @@ public class AddressService {
     }
 
     @Transactional(readOnly = true)
-    public List<AddressEntity> listAdresses() {
+    public List<AddressEntity> listAddresses() {
 
         return repository.findAll()
                 .stream()
