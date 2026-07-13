@@ -20,3 +20,7 @@ Detalhes sobre o update de pessoa e endereço: Visando as diferentes funcionalid
 e editar pessoa + endereço.
 
 Decisão: Não implementar todos os testes unitarios dos usecases de get,list. Motivo: tempo, foco maior nos testes de integração ou testes de use cases mais "complexos"
+
+Docker: Cria uma rede interna privada entre banco e aplicação
+
+Como rodar o projeto: docker compose up --build -> docker compose up -d -> mvn test

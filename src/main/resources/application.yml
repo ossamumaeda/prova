@@ -1,14 +1,16 @@
 server:
-  port: 8081
+  port: 8080
+
 spring:
+  application:
+    name: person-api
+
+  profiles:
+    active: dev
 
   flyway:
-    locations: classpath:db/migration
     enabled: true
-  datasource:
-    url: jdbc:postgresql://localhost:5437/persondb
-    username: person
-    password: person
+    locations: classpath:db/migration
 
   jpa:
     hibernate:
@@ -17,5 +19,3 @@ spring:
     properties:
       hibernate:
         format_sql: true
-
-  
