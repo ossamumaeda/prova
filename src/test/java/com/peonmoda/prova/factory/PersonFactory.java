@@ -66,7 +66,6 @@ public class PersonFactory {
 
     public static UpdatePersonRequest updateRequest() {
         return new UpdatePersonRequest(
-                "12330487916",
                 "Gabriel Atualizado",
                 "gabriel@email.com",
                 LocalDate.of(2000, 1, 1),

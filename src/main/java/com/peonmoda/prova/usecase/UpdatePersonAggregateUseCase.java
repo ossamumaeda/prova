@@ -12,6 +12,7 @@ import com.peonmoda.prova.dto.request.UpdatePersonAggregateRequest;
 import com.peonmoda.prova.dto.response.PersonResponse;
 import com.peonmoda.prova.entity.AddressEntity;
 import com.peonmoda.prova.entity.PersonEntity;
+import com.peonmoda.prova.exception.AddressNotRelatedToPersonException;
 import com.peonmoda.prova.exception.DuplicateEmailException;
 import com.peonmoda.prova.mapper.AddressMapper;
 import com.peonmoda.prova.mapper.PersonMapper;
@@ -35,6 +36,7 @@ public class UpdatePersonAggregateUseCase {
                         UpdatePersonAggregateRequest dto) throws NotFoundException {
                                 
                 PersonEntity person = personService.searchById(id);
+                
                 validarEmail(dto.pessoa().email(), person);
 
                 personMapper.updatePerson(dto.pessoa(), person);
@@ -44,6 +46,11 @@ public class UpdatePersonAggregateUseCase {
                 if (dto.enderecos().size() > 0) {
                         for (UpdateAddressRequest address : dto.enderecos()) {
                                 AddressEntity adressEntity = addressService.searchById(address.id());
+
+                                if(adressEntity.getPessoa().getId().equals(id) == false){
+                                        throw new AddressNotRelatedToPersonException();
+                                }
+
                                 addressMapper.updateAddress(address, adressEntity);
                         }
                 }

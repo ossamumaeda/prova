@@ -7,12 +7,14 @@ import com.peonmoda.prova.dto.response.PersonResponse;
 import com.peonmoda.prova.usecase.CreatePersonUsecase;
 import com.peonmoda.prova.usecase.DeletePersonUseCase;
 import com.peonmoda.prova.usecase.GetPersonByIdUseCase;
+import com.peonmoda.prova.usecase.ListPeopleUsecase;
 import com.peonmoda.prova.usecase.UpdatePersonAggregateUseCase;
 import com.peonmoda.prova.usecase.UpdatePersonUseCase;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
@@ -30,7 +32,7 @@ public class PersonController {
     private final UpdatePersonUseCase updatePersonUseCase;
     private final UpdatePersonAggregateUseCase updatePersonAggregateUseCase;
     private final DeletePersonUseCase deletePersonUseCase;
-
+    private final ListPeopleUsecase listPeopleUsecase;
     @PostMapping
     public ResponseEntity<PersonResponse> create(
             @Valid @RequestBody CreatePersonRequest request) {
@@ -42,12 +44,12 @@ public class PersonController {
                 .body(response);
     }
 
-    // @GetMapping
-    // public ResponseEntity<List<PersonResponse>> findAll() {
+    @GetMapping("")
+    public ResponseEntity<List<PersonResponse>> findAll() throws NotFoundException {
 
-    //     return ResponseEntity.ok(
-    //             listPersonsUseCase.execute());
-    // }
+        return ResponseEntity.ok(
+                listPeopleUsecase.execute());
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<PersonResponse> findById(
@@ -60,7 +62,7 @@ public class PersonController {
     /**
      * Atualiza apenas os dados da pessoa.
      * @throws NotFoundException 
-     */
+     */ 
     @PatchMapping("/{id}")
     public ResponseEntity<PersonResponse> updatePerson(
             @PathVariable UUID id,

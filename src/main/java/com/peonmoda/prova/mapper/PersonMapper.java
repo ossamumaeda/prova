@@ -71,7 +71,6 @@ public class PersonMapper {
             PersonEntity person) {
 
         person.setNome(dto.nome());
-        person.setCpf(dto.cpf());
         person.setEmail(dto.email());
         person.setTelefone(dto.telefone());
         person.setDataNascimento(dto.dataNascimento());
