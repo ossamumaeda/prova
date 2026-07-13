@@ -28,11 +28,8 @@ public class DeleteAddressUseCase {
         PersonEntity person = personService.searchById(personId);
 
         AddressEntity address = addressService.searchById(addressId);
-
-        System.out.println(address.getPessoa().getId());
-        System.out.println(person.getId());
-
-        if (address.getPessoa().getId() != person.getId()) {
+        
+        if (!address.getPessoa().getId().equals(person.getId())) {
             throw new AddressNotRelatedToPersonException();
         }
 
