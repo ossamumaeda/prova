@@ -33,6 +33,7 @@ public class UpdatePersonAggregateUseCase {
 
         public PersonResponse execute(UUID id,
                         UpdatePersonAggregateRequest dto) throws NotFoundException {
+                                
                 PersonEntity person = personService.searchById(id);
                 validarEmail(dto.pessoa().email(), person);
 
@@ -53,13 +54,9 @@ public class UpdatePersonAggregateUseCase {
 
         private void validarEmail(String email, PersonEntity person) {
 
-                if (email.equals(person.getEmail())) {
-                        return;
-                }
-
                 Optional<PersonEntity> existing = personService.searchByEmail(email);
-
-                if (existing.isPresent() && !existing.get().getId().equals(person.getId())) {
+                // If email was found and email is related to another person
+                if (existing.isPresent() && existing.get().getId().equals(person.getId()) == false) {
 
                         throw new DuplicateEmailException(email);
 

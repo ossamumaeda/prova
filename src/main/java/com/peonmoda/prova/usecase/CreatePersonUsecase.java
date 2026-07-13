@@ -9,6 +9,7 @@ import com.peonmoda.prova.dto.response.PersonResponse;
 import com.peonmoda.prova.entity.PersonEntity;
 import com.peonmoda.prova.exception.DuplicateCpfException;
 import com.peonmoda.prova.exception.DuplicateEmailException;
+import com.peonmoda.prova.exception.EmptyAddresses;
 import com.peonmoda.prova.exception.InvalidPersonException;
 import com.peonmoda.prova.mapper.PersonMapper;
 import com.peonmoda.prova.service.PersonService;
@@ -60,8 +61,7 @@ public class CreatePersonUsecase {
     private void validarEnderecos(List<CreateAddressRequest> enderecos) {
 
         if (enderecos == null || enderecos.isEmpty()) {
-            throw new InvalidPersonException(
-                    "A pessoa deve possuir pelo menos um endereço.");
+            throw new EmptyAddresses("Lista de endereços vazia");
         }
 
     }

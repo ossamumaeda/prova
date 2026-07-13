@@ -2,9 +2,7 @@ package com.peonmoda.prova.mapper;
 
 import org.springframework.stereotype.Component;
 
-import com.peonmoda.prova.dto.request.CreateAddressRequest;
 import com.peonmoda.prova.dto.request.CreatePersonRequest;
-import com.peonmoda.prova.dto.request.UpdateAddressRequest;
 import com.peonmoda.prova.dto.request.UpdatePersonRequest;
 import com.peonmoda.prova.dto.response.AddressResponse;
 import com.peonmoda.prova.dto.response.PersonResponse;
