@@ -10,7 +10,6 @@ import com.peonmoda.prova.entity.AddressEntity;
 import com.peonmoda.prova.exception.AdressNotFoundException;
 import com.peonmoda.prova.repository.AddressRepository;
 
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 
 @Service

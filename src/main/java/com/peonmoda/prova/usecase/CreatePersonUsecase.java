@@ -10,7 +10,6 @@ import com.peonmoda.prova.entity.PersonEntity;
 import com.peonmoda.prova.exception.DuplicateCpfException;
 import com.peonmoda.prova.exception.DuplicateEmailException;
 import com.peonmoda.prova.exception.EmptyAddresses;
-import com.peonmoda.prova.exception.InvalidPersonException;
 import com.peonmoda.prova.mapper.PersonMapper;
 import com.peonmoda.prova.service.PersonService;
 
