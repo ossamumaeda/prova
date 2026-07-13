@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.peonmoda.prova.entity.AddressEntity;
+import com.peonmoda.prova.exception.AdressNotFoundException;
 import com.peonmoda.prova.repository.AddressRepository;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -32,7 +33,7 @@ public class AddressService {
         return repository.findById(id)
                 .filter(AddressEntity::getAtivo)
                 .orElseThrow(() ->
-                        new EntityNotFoundException("Endereço não encontrado."));
+                        new AdressNotFoundException());
     }
 
     @Transactional(readOnly = true)

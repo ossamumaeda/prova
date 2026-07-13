@@ -36,8 +36,8 @@ public final class AddressFactory {
                 "999",
                 "Sala 10",
                 "Centro",
-                "Maringá",
-                "PR"
+                "PR",
+                "86600218"
         );
     }
 

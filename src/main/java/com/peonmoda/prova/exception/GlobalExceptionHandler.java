@@ -19,6 +19,24 @@ import java.util.Map;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+        @ExceptionHandler(Exception.class)
+        public ResponseEntity<ErrorResponse> handleGeneric(
+                        Exception ex,
+                        HttpServletRequest request) {
+
+                ex.printStackTrace();
+
+                ErrorResponse response = new ErrorResponse(
+                                LocalDateTime.now(),
+                                HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                                HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(),
+                                "Erro interno do servidor.",
+                                request.getRequestURI(),
+                                null);
+
+                return ResponseEntity.internalServerError().body(response);
+        }
+
         @ExceptionHandler(BusinessException.class)
         public ResponseEntity<ErrorResponse> handleBusinessException(
                         BusinessException ex,
@@ -91,20 +109,20 @@ public class GlobalExceptionHandler {
                 return ResponseEntity.badRequest().body(response);
         }
 
-        @ExceptionHandler(Exception.class)
-        public ResponseEntity<ErrorResponse> handleGeneric(
-                        Exception ex,
-                        HttpServletRequest request) {
+        // @ExceptionHandler(Exception.class)
+        // public ResponseEntity<ErrorResponse> handleGeneric(
+        //                 Exception ex,
+        //                 HttpServletRequest request) {
 
-                ErrorResponse response = new ErrorResponse(
-                                LocalDateTime.now(),
-                                HttpStatus.INTERNAL_SERVER_ERROR.value(),
-                                HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(),
-                                "Erro interno do servidor.",
-                                request.getRequestURI(),
-                                null);
+        //         ErrorResponse response = new ErrorResponse(
+        //                         LocalDateTime.now(),
+        //                         HttpStatus.INTERNAL_SERVER_ERROR.value(),
+        //                         HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(),
+        //                         "Erro interno do servidor.",
+        //                         request.getRequestURI(),
+        //                         null);
 
-                return ResponseEntity.internalServerError().body(response);
-        }
+        //         return ResponseEntity.internalServerError().body(response);
+        // }
 
 }

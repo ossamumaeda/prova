@@ -23,6 +23,7 @@ public class UpdateAddressUseCase {
     public AddressResponse execute(UUID personId, UUID addressId, UpdateAddressRequest address) {
 
         AddressEntity addressEntity = service.searchById(addressId);
+        
         if (!addressEntity.getPessoa().getId().equals(personId)) {
             throw new AddressNotRelatedToPersonException();
         }
