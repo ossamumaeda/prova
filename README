@@ -226,7 +226,7 @@ O Flyway executa automaticamente todas as migrations durante a inicialização d
 ## Clonar o projeto
 
 ```bash
-git clone <url-do-repositorio>
+git clone https://github.com/ossamumaeda/prova
 cd person-api
 ```
 
