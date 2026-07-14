@@ -22,7 +22,7 @@ public class PersonService {
     private final PersonRepository repository;
 
     public List<PersonEntity> getAll(){
-        return repository.findAll();
+        return repository.findByAtivo(true);
     }
 
     public PersonEntity save(PersonEntity pessoa) {
